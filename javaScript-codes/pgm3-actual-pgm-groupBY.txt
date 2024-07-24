@@ -1,0 +1,23 @@
+1. CREATE EMPLOYEE TABLE CONTAINING ALL RECORDS E_ID, E_NAME,
+AGE, SALARY.
+CREATE TABLE EMPL (
+EMPNO NUMBER(5),
+ENAME VARCHAR(20),
+AGE NUMBER(3),
+SAL NUMBER(5),
+CONSTRAINT PK_EMPL PRIMARY KEY(EMPNO),
+CONSTRAINT FK_EMPL FOREIGN KEY(MANAGER_NO) REFERENCES EMPL
+(EMPNO));
+INSERT INTO EMPLOYEE VALUES (&EMPNO, ‘&ENAME’, &AGE,&SAL);
+
+2. Count number of employee names from employee table
+SELECT COUNT(*) FROM EMPL;
+3. Find the Maximum age from employee table.
+SELECT MAX(AGE) FROM EMPL;
+4. Find the Minimum age from employee table.
+SELECT MIN(AGE) FROM EMPL;
+5. Find salaries of employee in Ascending Order.
+SELECT * FROM EMPL ORDERBY SAL;
+6. Find grouped salaries of employees.
+SELECT * FROM EMPL
+GROUP BY AGE;
