@@ -1,0 +1,87 @@
+Installing MongoDB
+Step 1: Choose the Installation Method
+MongoDB provides various installation methods depending on your operating system and
+preferences:
+• Package Manager: Some operating systems offer MongoDB packages that can be
+installed using a package manager (e.g., apt for Ubuntu, yum for CentOS).
+• Official MongoDB Repository: Add the MongoDB repository to your system and
+install MongoDB using the package manager.
+• MongoDB Download Center: Download the MongoDB Community Server binaries
+directly from the MongoDB website.
+Step 2: Installation Steps (Linux Example)
+Here's a general guide for installing MongoDB on a Linux system (e.g., Ubuntu):
+1. Add MongoDB Repository (for Ubuntu):
+# Import the MongoDB GPG key
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+# Add MongoDB repository
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -
+cs)/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+2. Install MongoDB:
+# Update package list
+sudo apt update
+# Install MongoDB
+sudo apt install -y mongodb-org
+
+3. Start MongoDB Service:
+# Start MongoDB service
+sudo systemctl start mongod
+# Enable MongoDB to start on boot
+sudo systemctl enable mongod
+Step 3: Verify Installation
+After installation, you can verify MongoDB status and connect to the MongoDB shell:
+Check MongoDB service status:
+sudo systemctl status mongod
+Access MongoDB shell:
+mongo
+Step 4: Explore MongoDB
+Now that MongoDB is installed, you can start working with it:
+• Create databases, collections, and documents.
+• Perform CRUD (Create, Read, Update, Delete) operations.
+• Use MongoDB Compass (GUI tool) or command-line tools (mongo, mongodump,
+mongorestore, etc.) to manage MongoDB databases
+------main stuff----
+
+
+1. Create (Insert) Documents
+In NoSQL databases like MongoDB or Couchbase, documents are inserted into collections (in
+MongoDB) or buckets (in Couchbase). Each document is a JSON-like object.
+Example (MongoDB):
+// Insert a document into a collection
+db.users.insertOne({
+ name: "John Doe",
+ age: 30,
+ email: "john@example.com"
+});
+// Insert multiple documents into a collection
+db.users.insertMany([
+ { name: "Alice Smith", age: 25, email: "alice@example.com" },
+ { name: "Bob Johnson", age: 35, email: "bob@example.com" }
+]);
+
+2. Read (Query) Documents
+// Find all documents in a collection
+db.users.find();
+// Find documents matching specific criteria
+db.users.find({ age: { $gte: 30 } }); // Find users where age is greater than or equal to 30
+// Find a single document by a specific field
+db.users.findOne({ email: "john@example.com" });
+3. Update Documents
+Updating documents allows modifying existing data within the database.
+// Update a document
+db.users.updateOne(
+ { name: "Alice Smith" },
+ { $set: { age: 26 } }
+);
+
+// Update multiple documents
+db.users.updateMany(
+  { age: { $gte: 30 } },
+  { $set: { status: "senior" } }
+ );
+ 4. Delete Documents
+ Deleting documents removes data from the database.
+ // Delete a document
+ db.users.deleteOne({ name: "Bob Johnson" });
+ // Delete multiple documents
+ db.users.deleteMany({ age: { $lt: 25 } }); // Delete users younger than 25
+

@@ -1,0 +1,39 @@
+DECLARE
+-- Declare variables to hold employee data
+ v_e_id EMPLOYEE.E_ID%TYPE;
+ v_e_name EMPLOYEE.E_NAME%TYPE;
+ v_age EMPLOYEE.AGE%TYPE;
+ v_salary EMPLOYEE.SALARY%TYPE;
+
+ -- Declare cursor for the employee table
+ CURSOR emp_cursor IS
+ SELECT E_ID, E_NAME, AGE, SALARY
+ FROM EMPLOYEE;
+BEGIN
+ -- Open the cursor
+ OPEN emp_cursor;
+
+ -- Loop through the cursor and fetch values into variables
+ LOOP
+ FETCH emp_cursor INTO v_e_id, v_e_name, v_age, v_salary;
+
+ -- Exit the loop if no more rows to fetch
+ EXIT WHEN emp_cursor%NOTFOUND;
+
+ -- Process the fetched data (for example, display or use the values)
+ DBMS_OUTPUT.PUT_LINE('Employee ID: ' || v_e_id);
+ DBMS_OUTPUT.PUT_LINE('Name: ' || v_e_name);
+ DBMS_OUTPUT.PUT_LINE('Age: ' || v_age);
+ DBMS_OUTPUT.PUT_LINE('Salary: ' || v_salary);
+ DBMS_OUTPUT.PUT_LINE('---------------------------------');
+ END LOOP;
+  -- Close the cursor
+ CLOSE emp_cursor;
+EXCEPTION
+ WHEN OTHERS THEN
+ -- Handle exceptions (if any)
+ DBMS_OUTPUT.PUT_LINE('Error occurred: ' || SQLERRM);
+ IF emp_cursor%ISOPEN THEN
+ CLOSE emp_cursor;
+ END IF;
+END;

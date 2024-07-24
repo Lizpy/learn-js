@@ -1,0 +1,43 @@
+Create (Insert) Documents
+To insert documents into a collection:
+javascript
+// Switch to or create a database (e.g., mydatabase)
+use mydatabase;
+// Insert a single document into a collection (e.g., users)
+db.users.insertOne({ name: "John Doe", age: 30, email: "john@example.com" });
+// Insert multiple documents into a collection
+db.users.insertMany([
+ { name: "Alice Smith", age: 25, email: "alice@example.com" },
+ { name: "Bob Johnson", age: 35, email: "bob@example.com" }
+]);
+
+Read (Query) Documents
+To query documents from a collection:
+javascript
+// Find all documents in the users collection
+db.users.find();
+
+// Find documents matching specific criteria
+db.users.find({ age: { $gte: 30 } }); // Find users where age is greater than or equal to 30
+// Find a single document by a specific field
+db.users.findOne({ email: "john@example.com" });
+Update Documents
+To update existing documents in a collection:
+javascript
+// Update a single document
+db.users.updateOne(
+ { name: "Alice Smith" },
+ { $set: { age: 26 } }
+);
+// Update multiple documents
+db.users.updateMany(
+ { age: { $gte: 30 } },
+ { $set: { status: "senior" } }
+);
+Delete Documents
+To delete documents from a collection:
+javascript
+// Delete a single document
+db.users.deleteOne({ name: "Bob Johnson" });
+// Delete multiple documents
+db.users.deleteMany({ age: { $lt: 25 } }); // Delete users younger than 25
